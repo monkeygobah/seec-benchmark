@@ -1,5 +1,0 @@
-image_path,label,group_id,eye,patient_id,disease_status
-class_a/a_001_od.png,class_a,a_001,OD,a_001,disease
-class_a/a_001_os.png,class_a,a_001,OS,a_001,disease
-class_b/b_001_od.png,class_b,b_001,OD,b_001,disease
-class_b/b_001_os.png,class_b,b_001,OS,b_001,disease
