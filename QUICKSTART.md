@@ -30,7 +30,7 @@ $EEB_DATA_ROOT/
 ```
 
 The paper `Clinic` and `Disease` clinical datasets are not publicly released.
-The disease command is for users with their own governed dataset.
+The disease command is for users with their own, IRB approved dataset.
 
 Validate the layout:
 
