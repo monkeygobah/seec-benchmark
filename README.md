@@ -6,8 +6,7 @@ external-eye crops. It supports fixed-scale pretraining, embedding geometry
 evaluation, anatomical landmark probing, and bring-your-own-data disease
 classification.
 
-This repository does not include clinical images from our paper.
-`Clinic` and `Disease` datasets are not available for public release owing to IRB restrictions, but are potentially available pending IRB approval and appropriate data use agreements. The public disease task is provided as a protocol for users with their own appropriately governed dataset.
+This repository does not include clinical images from our paper as `Clinic` and `Disease` datasets are not available for public release owing to IRB restrictions however, they are potentially available pending IRB approval and appropriate data use agreements. The public disease task is provided as a protocol for users with their own appropriately governed dataset.
 
 For a short first-run path through the artifact, see `QUICKSTART.md`.
 
@@ -46,6 +45,10 @@ Validate the expected layout:
 python scripts/validate_release_inputs.py --data-root "$EEB_DATA_ROOT"
 ```
 
+You can download all model checkpoints used in our work here:
+
+INSERT LINK
+
 ## Release Contents
 
 ```text
@@ -64,11 +67,9 @@ crops are not bundled in this v0.1 release.
 This release assumes that users already have an authorized local copy of the
 canonical `subset6` external-eye corpus. Full reconstruction of the external-eye
 corpus from all upstream source datasets will be documented in a separate
-repository:
+repository.
 
-```text
-Full source-dataset reconstruction repository: [URL to be added]
-```
+That repository will be linked here following acceptance- it is also linked in section 2.5 of our submission.
 
 From an authorized `subset6` corpus, this release provides fixed public-facing
 manifests for pretraining and geometry evaluation:
