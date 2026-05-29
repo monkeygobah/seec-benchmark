@@ -22,7 +22,7 @@ export EEB_CHECKPOINT_ROOT=/path/to/checkpoints
 export EEB_OUTPUT_ROOT=/path/to/outputs
 ```
 
-Expected local data layout:
+Once all datasets have been prepared and curated, the expected local data layout is as follows:
 
 ```text
 $EEB_DATA_ROOT/
@@ -36,6 +36,9 @@ $EEB_DATA_ROOT/
     images/
     manifest.csv
 ```
+
+Everything other than diseases_boyd should be present (unless you bring your own data.
+
 
 Validate the expected layout:
 
