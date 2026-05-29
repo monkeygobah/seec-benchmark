@@ -142,13 +142,7 @@ Publicly supported tasks:
 - `LM-Celeb` and `LM-CFD` anatomical landmark probing
 - disease classification using a bring-your-own-data manifest
 
-Not publicly released:
-
-- `Clinic`: unlabeled clinical images from the paper
-- `Disease`: clinical classification images and labels from the paper
-
-The restricted clinical tasks remain described by the protocol so authorized
-users can run the same code on appropriately governed local data.
+The restricted clinical tasks remain described by the protocol so you can run the same code on your own data if you wish.
 
 ## Pretraining Models
 
