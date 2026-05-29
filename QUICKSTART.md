@@ -6,7 +6,7 @@ reproduction requires authorized data and downloaded checkpoints.
 ## Install
 
 ```bash
-cd BENCHMARK_RELEASE
+cd seec-benchmark
 python -m pip install -r requirements.txt
 export EEB_RELEASE_ROOT="$PWD"
 export EEB_DATA_ROOT=/path/to/data
