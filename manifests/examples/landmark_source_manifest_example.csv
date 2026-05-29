@@ -1,3 +1,0 @@
-dataset_name,image_dir,mask_dir,image_suffix,mask_suffix
-celeb,landmark_raw/celeb/images,landmark_raw/celeb/masks,.jpg,.png
-cfd,landmark_raw/cfd/images,landmark_raw/cfd/masks,.jpg,.png
