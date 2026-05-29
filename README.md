@@ -1,6 +1,6 @@
-# External Eye Benchmark
+# SEEC Benchmark
 
-External Eye Benchmark is a public release of code, manifests, configs, and
+The SEEC benchmark is a public release of code, manifests, configs, and
 protocols for evaluating self-supervised representations of standardized
 external-eye crops. It supports fixed-scale pretraining, embedding geometry
 evaluation, anatomical landmark probing, and bring-your-own-data disease
