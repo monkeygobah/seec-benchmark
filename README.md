@@ -6,18 +6,15 @@ external-eye crops. It supports fixed-scale pretraining, embedding geometry
 evaluation, anatomical landmark probing, and bring-your-own-data disease
 classification.
 
-This repository does not include clinical images, pretrained checkpoints,
-training runs, generated embeddings, or full upstream source datasets. The
-`Clinic` geometry data and paper `Disease` clinical classification dataset are
-not available for public release. The public disease task is provided as a
-protocol for users with their own appropriately governed dataset.
+This repository does not include clinical images from our paper.
+`Clinic` and `Disease` datasets are not available for public release owing to IRB restrictions, but are potentially available pending IRB approval and appropriate data use agreements. The public disease task is provided as a protocol for users with their own appropriately governed dataset.
 
 For a short first-run path through the artifact, see `QUICKSTART.md`.
 
 ## Installation
 
 ```bash
-cd BENCHMARK_RELEASE
+cd seec-benchmark
 python -m pip install -r requirements.txt
 export EEB_RELEASE_ROOT="$PWD"
 export EEB_DATA_ROOT=/path/to/data
