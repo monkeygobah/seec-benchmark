@@ -6,6 +6,10 @@ external-eye crops. It supports fixed-scale pretraining, embedding geometry
 evaluation, anatomical landmark probing, and bring-your-own-data disease
 classification.
 
+
+<img width="1196" height="258" alt="construction-schem" src="https://github.com/user-attachments/assets/bab9f25f-c6fd-47c1-b0fe-a11ba0d12a67" />
+<img width="1280" height="619" alt="benchmark-descriptions" src="https://github.com/user-attachments/assets/bee8d716-aaf2-4517-9005-d6ef37ca84b2" />
+
 This repository does not include clinical images from our paper as `Clinic` and `Disease` datasets are not available for public release owing to IRB restrictions however, they are potentially available pending IRB approval and appropriate data use agreements. The public disease task is provided as a protocol for users with their own appropriately governed dataset.
 
 For a short first-run path through the artifact, see `QUICKSTART.md`.
@@ -69,6 +73,10 @@ canonical `subset6` external-eye corpus. Full reconstruction of the external-eye
 corpus from all upstream source datasets will be documented in a separate
 repository.
 
+<img width="1196" height="258" alt="construction-schem" src="https://github.com/user-attachments/assets/f9e4fdd2-330c-4581-b202-18c137fd9b31" />
+
+
+
 That repository will be linked here following acceptance- it is also linked in section 2.5 of our submission.
 
 From an authorized `subset6` corpus, this release provides fixed public-facing
@@ -102,7 +110,6 @@ The landmark benchmark uses public periorbital segmentation data:
 
 - Zenodo record: https://zenodo.org/records/13916845
 - DOI: `10.5281/zenodo.13916845`
-- License: Creative Commons Attribution 4.0 International
 - Files include `periorbital_dataset.zip` plus helper scripts.
 
 After downloading and arranging the raw image/mask pairs, use this layout:
@@ -133,6 +140,14 @@ $EEB_OUTPUT_ROOT/landmarks/periorbital_224_v2/
   metadata/prep_failures.csv
   metadata/prep_summary.csv
 ```
+
+Here is a figure from our paper demonstrating qualitatively predicted landmarks after training:
+
+
+<img width="1280" height="619" alt="benchmark-descriptions" src="https://github.com/user-attachments/assets/920dc855-4b22-4e12-8ce0-efc18d70b1c8" />
+<img width="913" height="402" alt="lm-qual-trans" src="https://github.com/user-attachments/assets/6d7f3a15-b993-41be-9ca5-ffe6a406a6cd" />
+ 
+
 
 ## Benchmark Tasks
 
@@ -191,14 +206,14 @@ and writes aggregate CSVs under `$EEB_OUTPUT_ROOT/geometry`. Download the
 pretrained checkpoints into `$EEB_CHECKPOINT_ROOT` before running these
 commands.
 
-ResNet-101 grid:
+ResNet-101:
 
 ```bash
 python scripts/run_geometry_eval.py \
   --cfg configs/geometry/resnet101_50k_grid.yaml
 ```
 
-ViT-B/16 grid:
+ViT-B/16:
 
 ```bash
 python scripts/run_geometry_eval.py \
