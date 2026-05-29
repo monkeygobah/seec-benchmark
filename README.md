@@ -143,7 +143,6 @@ $EEB_OUTPUT_ROOT/landmarks/periorbital_224_v2/
 Here is a figure from our paper demonstrating qualitatively predicted landmarks after training:
 
 
-<img width="1280" height="619" alt="benchmark-descriptions" src="https://github.com/user-attachments/assets/920dc855-4b22-4e12-8ce0-efc18d70b1c8" />
 <img width="913" height="402" alt="lm-qual-trans" src="https://github.com/user-attachments/assets/6d7f3a15-b993-41be-9ca5-ffe6a406a6cd" />
  
 
