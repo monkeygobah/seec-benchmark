@@ -8,7 +8,6 @@ classification.
 
 
 <img width="1196" height="258" alt="construction-schem" src="https://github.com/user-attachments/assets/bab9f25f-c6fd-47c1-b0fe-a11ba0d12a67" />
-<img width="1280" height="619" alt="benchmark-descriptions" src="https://github.com/user-attachments/assets/bee8d716-aaf2-4517-9005-d6ef37ca84b2" />
 
 This repository does not include clinical images from our paper as `Clinic` and `Disease` datasets are not available for public release owing to IRB restrictions however, they are potentially available pending IRB approval and appropriate data use agreements. The public disease task is provided as a protocol for users with their own appropriately governed dataset.
 
