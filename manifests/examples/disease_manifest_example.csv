@@ -1,0 +1,4 @@
+image_path,label,group_id,eye,patient_id,disease_status
+class_a/example_001_od.png,class_a,example_001,OD,patient_001,disease
+class_a/example_001_os.png,class_a,example_001,OS,patient_001,disease
+class_b/example_002_od.png,class_b,example_002,OD,patient_002,disease

@@ -1,0 +1,47 @@
+study:
+  name: "landmark_within_and_transfer"
+  output_root: "${EEB_OUTPUT_ROOT}/landmarks"
+
+dataset_cfg: "${EEB_RELEASE_ROOT}/configs/landmarks/prepare_celeb_cfd.yaml"
+probe_cfg: "${EEB_RELEASE_ROOT}/configs/landmarks/mlp_default.yaml"
+
+runs:
+  - run_name: "resnet101-1m-vicreg-random"
+    run_dir: "${EEB_CHECKPOINT_ROOT}/resnet101_50k/geometry-fixedcompute-1m-vicreg-random-50ksteps"
+    checkpoint_step: 50000
+  - run_name: "dinov2-vitb14"
+    external_model: "dinov2_vitb14"
+    checkpoint_step: 0
+  - run_name: "mae-vitb16"
+    external_model: "mae_vitb16_in1k_pretrain"
+    checkpoint_step: 0
+
+representations:
+  - embedding_key: "backbone/features"
+    pooling: "g4"
+
+tasks:
+  - task_name: "celeb_within"
+    train_split: {dataset_name: "celeb", split: "train"}
+    val_split: {dataset_name: "celeb", split: "val"}
+    test_split: {dataset_name: "celeb", split: "test"}
+  - task_name: "cfd_within"
+    train_split: {dataset_name: "cfd", split: "train"}
+    val_split: {dataset_name: "cfd", split: "val"}
+    test_split: {dataset_name: "cfd", split: "test"}
+  - task_name: "celeb_to_cfd"
+    train_split: {dataset_name: "celeb", split: "train"}
+    val_split: {dataset_name: "celeb", split: "val"}
+    test_split: {dataset_name: "cfd", split: "test"}
+
+extraction:
+  batch_size: 256
+  num_workers: 4
+  device: "auto"
+  precision: "fp32"
+  overwrite: false
+
+artifact:
+  save_embeddings: true
+  save_predictions: true
+  save_per_sample_metrics: true

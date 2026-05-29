@@ -1,0 +1,59 @@
+study:
+  name: "resnet101_50k_geometry"
+  output_root: "${EEB_OUTPUT_ROOT}/geometry"
+
+runs:
+  - run_name: "resnet101-1m-vicreg-random"
+    run_dir: "${EEB_CHECKPOINT_ROOT}/resnet101_50k/geometry-fixedcompute-1m-vicreg-random-50ksteps"
+    checkpoint_step: 50000
+  - run_name: "resnet101-1m-vicreg-imagenet"
+    run_dir: "${EEB_CHECKPOINT_ROOT}/resnet101_50k/geometry-fixedcompute-1m-vicreg-imagenet-50ksteps"
+    checkpoint_step: 50000
+  - run_name: "resnet101-1m-infonce-random"
+    run_dir: "${EEB_CHECKPOINT_ROOT}/resnet101_50k/geometry-fixedcompute-1m-infonce-random-50ksteps"
+    checkpoint_step: 50000
+  - run_name: "resnet101-1m-infonce-imagenet"
+    run_dir: "${EEB_CHECKPOINT_ROOT}/resnet101_50k/geometry-fixedcompute-1m-infonce-imagenet-50ksteps"
+    checkpoint_step: 50000
+  - run_name: "resnet101-1m-lejepa-random"
+    run_dir: "${EEB_CHECKPOINT_ROOT}/resnet101_50k/geometry-fixedcompute-1m-lejepa-random-50ksteps"
+    checkpoint_step: 50000
+  - run_name: "resnet101-1m-lejepa-imagenet"
+    run_dir: "${EEB_CHECKPOINT_ROOT}/resnet101_50k/geometry-fixedcompute-1m-lejepa-imagenet-50ksteps"
+    checkpoint_step: 50000
+
+datasets:
+  - dataset_name: "holdout"
+    root: "${EEB_DATA_ROOT}/subset6"
+    manifest: "${EEB_RELEASE_ROOT}/manifests/geometry/holdout.txt"
+    split_label: "holdout"
+    image_size: 224
+    normalize_imagenet: true
+  - dataset_name: "open_hr"
+    root: "${EEB_DATA_ROOT}/subset6"
+    manifest: "${EEB_RELEASE_ROOT}/manifests/geometry/open_hr.txt"
+    split_label: "eval"
+    image_size: 224
+    normalize_imagenet: true
+
+extraction:
+  batch_size: 256
+  num_workers: 4
+  device: "auto"
+  precision: "fp32"
+  overwrite: false
+
+artifact:
+  save_backbone: true
+  save_projected: true
+
+analyses:
+  isotropy:
+    enabled: true
+    num_pairs: 200000
+    seed: 0
+    embedding_keys: ["emb", "proj"]
+
+aggregation:
+  summary_csv: "geometry_isotropy_summary.csv"
+  row_keys: ["run_name", "checkpoint_step", "dataset_name", "split_label", "embedding_key"]
