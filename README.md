@@ -170,7 +170,7 @@ Pretrained model checkpoints are not committed to this repository. Download the
 checkpoint bundle before running geometry, landmark, or disease benchmarks:
 
 ```text
-Pretrained model checkpoints: [Google Drive link to be added]
+Pretrained model checkpoints: https://drive.google.com/drive/folders/1yWJFPZtZmlpNNfYdVn0HcqhuZudFZKPh?usp=sharing
 ```
 
 Expected checkpoint layout:
