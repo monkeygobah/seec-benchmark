@@ -12,6 +12,8 @@ models:
   - model_id: "vit_b16_lejepa"
     label: "External-Eye LeJEPA ViT-B/16"
     source: "checkpoint"
+    # BYOD example only: replace run_dir and checkpoint_step with your chosen run.
+    # This placeholder path is not a required packaged disease checkpoint; step 0 is literal.
     run_name: "delta-lejepa-vit-b16"
     run_dir: "${EEB_CHECKPOINT_ROOT}/vit_b16/delta-lejepa-vit-b16"
     checkpoint_step: 0

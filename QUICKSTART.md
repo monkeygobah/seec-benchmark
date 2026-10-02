@@ -105,6 +105,10 @@ Paths are relative to `disease_byod/images/` or absolute. Use one `group_id` for
 all images from the same subject, including both eyes. Provide at least two groups
 per class to form train/test partitions. This CSV illustrates the schema only.
 
+This BYOD config uses an example checkpoint path; set `run_dir` and
+`checkpoint_step` to your chosen run before running it. No dedicated disease
+checkpoint is required in the released archive.
+
 ```bash
 python scripts/run_disease_probe.py --cfg configs/disease/byod_disease_classification.yaml
 ```
