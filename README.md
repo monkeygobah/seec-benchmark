@@ -1,322 +1,50 @@
 # SEEC Benchmark
 
-SEEC Benchmark is a public release of code, manifests, configs, and protocols
-for evaluating self-supervised representations of standardized external-eye
-crops. It supports fixed-scale pretraining, embedding geometry evaluation,
-anatomical landmark probing, and bring-your-own-data disease classification.
+SEEC (Standardized External-Eye Corpus) is a corpus and benchmark for
+self-supervised representation learning on external-eye/periocular images.
+This repository provides benchmark code, example training configs, and fixed splits.
 
-This repository does not include clinical images, pretrained checkpoints,
-training runs, generated embeddings, or full upstream source datasets. The
-`Clinic` geometry data and paper `Disease` clinical classification dataset are
-not available for public release. The public disease task is provided as a
-protocol for users with their own appropriately governed dataset.
+**Start with the [Quickstart](QUICKSTART.md): install, prepare data, download checkpoints, and run.**
 
-For a short first-run path through the artifact, see `QUICKSTART.md`.
+<a id="landmark-probing"></a>
 
-## Installation
+## Tasks
 
-```bash
-cd seec-benchmark
-python -m pip install -r requirements.txt
-export EEB_RELEASE_ROOT="$PWD"
-export EEB_DATA_ROOT=/path/to/data
-export EEB_CHECKPOINT_ROOT=/path/to/checkpoints
-export EEB_OUTPUT_ROOT=/path/to/outputs
-```
+| Task | Resources |
+|---|---|
+| Embedding geometry under distribution shift | Holdout, Open-HR; restricted Clinic cohort |
+| In-distribution anatomical landmark recovery | LM-Celeb, LM-CFD |
+| Cross-dataset anatomical transfer | LM-Celeb to LM-CFD |
+| Disease classification: frozen probes and short fine-tuning | Restricted Disease cohort; public BYOD protocol |
 
-Expected local data layout:
+## Data and checkpoints
 
-```text
-$EEB_DATA_ROOT/
-  subset6/
-  landmark_raw/
-    celeb/images/
-    celeb/masks/
-    cfd/images/
-    cfd/masks/
-  disease_byod/
-    images/
-    manifest.csv
-```
+- Reconstruct authorized source images with [seec-dataset](https://github.com/monkeygobah/seec-dataset).
+- Use [scripts/prepare_benchmark_layout.py](scripts/prepare_benchmark_layout.py) to create a separate input view matching the [fixed manifests](manifests/README.md). See the [layout instructions](QUICKSTART.md#2-prepare-the-image-layout).
+- Download the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link). This is the current distribution location, not a commitment to permanent archival hosting.
 
-Validate the expected layout:
+Pretraining and Holdout use flat, dataset-prefixed **224 x 224** files. Open-HR
+uses dataset-relative **512 x 512** files; the supplied geometry configs resize
+these to 224 x 224 for encoder input. Both live under the prepared `subset6/` root.
 
-```bash
-python scripts/validate_release_inputs.py --data-root "$EEB_DATA_ROOT"
-```
+**Clinic and Disease are restricted and not publicly released. Their paper results
+are not publicly reproducible.** The BYOD disease command evaluates your own
+appropriately governed data; it does not reproduce the paper's clinical cohort.
 
-## Release Contents
+## Documentation
 
-```text
-configs/      benchmark and pretraining configuration files
-code/         copied source code used by the release scripts
-manifests/    fixed pretraining and evaluation split manifests
-scripts/      public command-line entrypoints
-tests/        lightweight release integrity tests
-```
+- [Quickstart](QUICKSTART.md)
+- [Benchmark dataset card](DATASET_CARD.md)
+- [Fixed manifests](manifests/README.md)
+- [Software citation](CITATION.cff)
 
-The released manifests contain one relative image path per line. Real image
-crops are not bundled in this v0.1 release.
+## Use and licensing
 
-## Rebuilding Benchmark Subsets
+Benchmark code is [MIT licensed](LICENSE). Source-derived data retain their
+applicable source terms. Cite this software and the source datasets you use;
+include the landmark source when running landmark tasks. The manuscript citation
+will be added when its bibliographic metadata are available.
 
-This release assumes that users already have an authorized local copy of the
-canonical `subset6` external-eye corpus. Full reconstruction of the external-eye
-corpus from all upstream source datasets will be documented in a separate
-repository:
-
-```text
-Full source-dataset reconstruction repository: [URL to be added]
-```
-
-Use the shipped fixed manifests for pretraining and geometry evaluation. Do not
-regenerate their membership. `scripts/prepare_subset6_splits.py` is a development-only
-sorted sampler; it cannot reproduce the canonical splits and refuses canonical outputs.
-
-Prepare a separate filesystem view from reconstructed outputs:
-
-```bash
-python scripts/prepare_benchmark_layout.py \
-  --subset6-root /path/to/reconstructed/SUBSET_6 \
-  --subset7-root /path/to/reconstructed/SUBSET_7 \
-  --out-root "$EEB_DATA_ROOT/subset6"
-```
-
-The view keeps 224 images as flat `<dataset>__<filename>` paths and 512 Open-HR
-images as `<dataset>/<filename>` paths under the same root, matching existing configs.
-Default `--mode auto` uses hard links and falls back to copies if linking is unavailable
-(e.g. different drives). Hard links normally need no administrator privileges on
-Windows, Linux, or macOS. Treat linked views as read-only: edits through a hard link
-would change the source too. Use `--mode copy` for independent files. Explicit
-`--mode symlink` may require Windows Developer Mode or additional permissions;
-`--mode hardlink` fails rather than falling back. Missing sources and existing destinations
-fail preflight without creating files. Repeated entries across fixed splits share one
-view file. Creation-time I/O failure may leave a partial view; nothing is overwritten.
-The utility does not modify source images or fixed manifests.
-
-Check fixed manifest counts:
-
-```bash
-wc -l manifests/pretrain/pretrain_10k.txt \
-      manifests/pretrain/pretrain_100k.txt \
-      manifests/pretrain/pretrain_1m.txt \
-      manifests/geometry/holdout.txt \
-      manifests/geometry/open_hr.txt
-```
-
-Expected counts:
-
-```text
-10000    manifests/pretrain/pretrain_10k.txt
-100000   manifests/pretrain/pretrain_100k.txt
-1000000  manifests/pretrain/pretrain_1m.txt
-421730   manifests/geometry/holdout.txt
-134969   manifests/geometry/open_hr.txt
-```
-
-## Periorbital Landmark Dataset Preparation
-
-The landmark benchmark uses public periorbital segmentation data:
-
-- Zenodo record: https://zenodo.org/records/13916845
-- DOI: `10.5281/zenodo.13916845`
-- License: Creative Commons Attribution 4.0 International
-- Files include `periorbital_dataset.zip` plus helper scripts.
-
-After downloading and arranging the raw image/mask pairs, use this layout:
-
-```text
-$EEB_DATA_ROOT/landmark_raw/
-  celeb/images/
-  celeb/masks/
-  cfd/images/
-  cfd/masks/
-```
-
-Prepare unilateral `224x224` eye crops, landmark coordinates, and splits:
-
-```bash
-python scripts/prepare_landmark_dataset.py \
-  --cfg configs/landmarks/prepare_celeb_cfd.yaml \
-  --overwrite
-```
-
-Outputs are written under:
-
-```text
-$EEB_OUTPUT_ROOT/landmarks/periorbital_224_v2/
-  metadata/dataset_manifest.csv
-  metadata/landmarks.csv
-  metadata/split_assignments.csv
-  metadata/prep_failures.csv
-  metadata/prep_summary.csv
-```
-
-## Benchmark Tasks
-
-Publicly supported tasks:
-
-- `Holdout` embedding geometry on source-distribution external-eye crops
-- `Open-HR` embedding geometry on high native-resolution open-source crops
-- `LM-Celeb` and `LM-CFD` anatomical landmark probing
-- disease classification using a bring-your-own-data manifest
-
-Not publicly released:
-
-- `Clinic`: unlabeled clinical images from the paper
-- `Disease`: clinical classification images and labels from the paper
-
-The restricted clinical tasks remain described by the protocol so authorized
-users can run the same code on appropriately governed local data.
-
-## Pretraining Models
-
-Example fixed-compute pretraining configs are provided in `configs/pretraining/`.
-Run one with:
-
-```bash
-python scripts/train_ssl.py --cfg configs/pretraining/pretrain_10k.yaml
-```
-
-Important config fields:
-
-- `data.train_root`: local root containing authorized `subset6` images
-- `data.train_manifest`: fixed manifest used for the pretraining subset
-- `model.backbone`: encoder architecture, such as `resnet101`
-- `model.init`: initialization, such as `random` or `imagenet`
-- `ssl.method`: self-supervised objective, such as `infonce`, `vicreg`, or `lejepa`
-- `run.total_steps`: fixed training budget
-- `dataloader.batch_size`: per-process batch size
-
-## Download Pretrained Checkpoints
-
-Pretrained model checkpoints are not committed to this repository. Download the
-checkpoint bundle before running geometry, landmark, or disease benchmarks:
-
-```text
-Pretrained model checkpoints: [Google Drive link to be added]
-```
-
-Expected checkpoint layout:
-
-```text
-$EEB_CHECKPOINT_ROOT/
-  resnet101_50k/
-  vit_b16_50k/
-  vit_b16/
-```
-
-The benchmark configs expect this layout when resolving checkpoint paths.
-
-## Embedding Geometry Evaluation
-
-Geometry evaluation extracts frozen embeddings, computes isotropy summaries,
-and writes aggregate CSVs under `$EEB_OUTPUT_ROOT/geometry`. Download the
-pretrained checkpoints into `$EEB_CHECKPOINT_ROOT` before running these
-commands.
-
-ResNet-101 grid:
-
-```bash
-python scripts/run_geometry_eval.py \
-  --cfg configs/geometry/resnet101_50k_grid.yaml
-```
-
-ViT-B/16 grid:
-
-```bash
-python scripts/run_geometry_eval.py \
-  --cfg configs/geometry/vit_b16_50k_grid.yaml
-```
-
-The geometry configs evaluate `Holdout` and `Open-HR` through released manifest
-files against the authorized local corpus root.
-
-## Landmark Probing
-
-After preparing the landmark dataset and downloading checkpoints into
-`$EEB_CHECKPOINT_ROOT`, run frozen feature extraction, MLP probe training, and
-aggregation:
-
-```bash
-python scripts/run_landmark_probe.py \
-  --cfg configs/landmarks/probe_within_and_transfer.yaml
-```
-
-The landmark config includes within-dataset tasks for `LM-Celeb` and `LM-CFD`
-and a Celeb-to-CFD transfer task.
-
-## Disease Classification BYOD Benchmark
-
-The public disease benchmark is bring-your-own-data. Provide images and a CSV
-manifest:
-
-```csv
-image_path,label,group_id
-class_a/example_001.png,class_a,subject_001
-class_b/example_002.png,class_b,subject_002
-```
-
-Required columns:
-
-- `image_path`: path relative to `$EEB_DATA_ROOT/disease_byod/images`, or absolute
-- `label`: disease class label
-- `group_id`: grouping key used for leakage-safe train/test splitting
-
-Optional columns include `eye`, `patient_id`, `source_image_path`, and
-`disease_status`. The split logic groups by `group_id`, which is intended to
-prevent left/right eye or repeated-source leakage.
-
-Run the benchmark:
-
-```bash
-python scripts/run_disease_probe.py \
-  --cfg configs/disease/byod_disease_classification.yaml
-```
-
-This command also expects any external-eye pretrained checkpoints referenced by
-`configs/disease/byod_disease_classification.yaml` to be available under
-`$EEB_CHECKPOINT_ROOT`.
-
-## Licensing, Citation, and Intended Use
-
-The benchmark code is released under the MIT License. Dataset components retain
-their original source licenses and data-use restrictions. Users are responsible
-for obtaining source datasets and complying with their terms.
-
-This benchmark is intended for representation learning research on external-eye
-images. It is not intended for face recognition, identity verification,
-surveillance, or deployment as a medical diagnostic system.
-
-If you use this release, cite the associated paper and the original source
-datasets, including the public periorbital segmentation dataset when using the
-landmark benchmark.
-
-## Development Checks
-
-These checks are optional, but useful after editing the release files. From the
-repository root, run:
-
-```bash
-python -m pytest tests -q
-```
-
-The fixed public manifests should also have the expected row counts:
-
-```bash
-wc -l manifests/pretrain/pretrain_10k.txt \
-      manifests/pretrain/pretrain_100k.txt \
-      manifests/pretrain/pretrain_1m.txt \
-      manifests/geometry/holdout.txt \
-      manifests/geometry/open_hr.txt
-```
-
-Expected output:
-
-```text
-10000    manifests/pretrain/pretrain_10k.txt
-100000   manifests/pretrain/pretrain_100k.txt
-1000000  manifests/pretrain/pretrain_1m.txt
-421730   manifests/geometry/holdout.txt
-134969   manifests/geometry/open_hr.txt
-```
+SEEC supports representation-learning research and benchmarking. It is not intended
+for face recognition, identity verification, or clinical deployment. Cropping does
+not guarantee anonymity; clinical benchmark results are not deployment validation.

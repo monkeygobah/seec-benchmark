@@ -1,45 +1,49 @@
-# Dataset Card
+# SEEC Benchmark Dataset Card
 
-SEEC Benchmark is organized around standardized unilateral external-eye crops
-and associated benchmark protocols.
+SEEC means Standardized External-Eye Corpus. This card covers the benchmark
+resources and protocols; source-corpus reconstruction is documented in
+[seec-dataset](https://github.com/monkeygobah/seec-dataset).
 
-## Components
+## Resources
 
-- `Pretrain-10K`, `Pretrain-100K`, `Pretrain-1M`: fixed unlabeled pretraining
-  subsets drawn from the canonical `subset6` corpus.
-- `Holdout`: held-out open-source source-distribution evaluation split.
-- `Open-HR`: high native-resolution open-source evaluation split.
-- `LM-Celeb`, `LM-CFD`: landmark probe datasets derived from public image/mask
-  pairs.
-- `Disease`: a bring-your-own-data disease classification protocol. The paper
-  uses restricted clinical data; those images and labels are not released.
+| Resource | Images | Purpose / access |
+|---|---:|---|
+| Pretrain-10K | 10,000 | Fixed unlabeled pretraining; authorized source reconstruction |
+| Pretrain-100K | 100,000 | Fixed unlabeled pretraining; authorized source reconstruction |
+| Pretrain-1M | 1,000,000 | Fixed unlabeled pretraining; authorized source reconstruction |
+| Holdout | 421,730 | Open-source geometry evaluation; authorized source reconstruction |
+| Open-HR | 134,969 | High-resolution geometry evaluation; authorized source reconstruction |
+| Clinic | 35,082 | Clinical geometry; restricted, not publicly released |
+| LM-Celeb | 3,610 | Landmark recovery and transfer; public source image/mask pairs |
+| LM-CFD | 1,596 | Landmark recovery and transfer; public source image/mask pairs |
+| Disease | 633 | Five-class clinical classification; restricted, not publicly released |
 
-## Public and Restricted Data
+Pretrain/Holdout use 224 x 224 files. Open-HR uses 512 x 512 files, resized to 224
+by the supplied geometry configs. See [Quickstart](QUICKSTART.md) for input layout.
 
-This release includes manifests and code. It does not include full upstream
-source datasets, real image crops, clinical images, checkpoints, generated
-embeddings, or training runs.
+## Public reproduction
 
-The `Clinic` geometry set and paper `Disease` classification set are not
-available for public release. Authorized users can run the same protocols on
-appropriately governed local datasets.
+The repository includes code, configs, fixed split manifests, and small examples.
+Full corpus images and clinical images are not bundled. Checkpoints are distributed
+separately through the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link); permanent archival hosting may change.
 
-## Landmark Source Dataset
+Clinic and Disease results from the paper are not publicly reproducible.
+The public BYOD disease protocol supports a user's appropriately governed dataset;
+it does not supply or reproduce the paper cohort. No clinical access is promised.
 
-The landmark benchmark uses public periorbital segmentation data:
+Landmark preparation uses [Zenodo record 13916845](https://zenodo.org/records/13916845),
+DOI `10.5281/zenodo.13916845`, described by the release as CC BY 4.0.
+Follow the source's terms and attribution requirements.
 
-- Zenodo record: https://zenodo.org/records/13916845
-- DOI: `10.5281/zenodo.13916845`
-- License: Creative Commons Attribution 4.0 International
+## Intended use and limitations
 
-## Intended Use
+Use SEEC for external-eye/periocular representation learning, anatomical probing,
+and research benchmarking. It is not intended for face recognition, identity
+verification, surveillance, or medical deployment. Clinical research results are
+not deployment-ready clinical validation, and source-to-clinic generalization
+requires further evaluation.
 
-The release supports representation learning research and benchmarking for
-external-eye image crops. It is not intended for face recognition, identity
-verification, surveillance, or deployment as a medical diagnostic system.
-
-## Privacy and Licensing
-
-External-eye crops reduce full-face exposure but do not remove identifiability
-risks. Users are responsible for obtaining source datasets, following original
-license terms, and complying with institutional data-use restrictions.
+Periocular cropping reduces full-face exposure but does not eliminate identifiability.
+Source-specific licenses and institutional restrictions continue to apply.
+The [MIT software license](LICENSE) does not grant redistribution rights for
+source-derived images. Users must obtain sources under their applicable terms.

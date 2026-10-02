@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: SEEC Benchmark
-message: "If you use this benchmark, please cite the associated paper."
+message: "Please cite this software and the source datasets used. The manuscript citation will be added when available."
 type: software
 authors:
   - family-names: Nahass
@@ -8,3 +8,6 @@ authors:
 date-released: 2026-05-29
 license: MIT
 version: 0.1.0
+repository-code: "https://github.com/monkeygobah/seec-benchmark"
+url: "https://github.com/monkeygobah/seec-benchmark"
+abstract: "Code, fixed splits, and evaluation protocols for self-supervised representation learning on standardized external-eye images."
