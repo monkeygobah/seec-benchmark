@@ -10,18 +10,18 @@ This repository provides benchmark code, example training configs, and fixed spl
 
 ## Tasks
 
-| Task | Resources |
-|---|---|
-| Embedding geometry under distribution shift | Holdout, Open-HR; restricted Clinic cohort |
-| In-distribution anatomical landmark recovery | LM-Celeb, LM-CFD |
-| Cross-dataset anatomical transfer | LM-Celeb to LM-CFD |
+| Task                                                        | Resources                                       |
+| ----------------------------------------------------------- | ----------------------------------------------- |
+| Embedding geometry under distribution shift                 | Holdout, Open-HR; restricted Clinic cohort      |
+| In-distribution anatomical landmark recovery                | LM-Celeb, LM-CFD                                |
+| Cross-dataset anatomical transfer                           | LM-Celeb to LM-CFD                              |
 | Disease classification: frozen probes and short fine-tuning | Restricted Disease cohort; public BYOD protocol |
 
 ## Data and checkpoints
 
 - Reconstruct authorized source images with [seec-dataset](https://github.com/monkeygobah/seec-dataset).
 - Use [scripts/prepare_benchmark_layout.py](scripts/prepare_benchmark_layout.py) to create a separate input view matching the [fixed manifests](manifests/README.md). See the [layout instructions](QUICKSTART.md#2-prepare-the-image-layout).
-- Download the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link). This is the current distribution location, not a commitment to permanent archival hosting.
+- Download the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link). This is the current distribution location, and may be updated later.
 
 Pretraining and Holdout use flat, dataset-prefixed **224 x 224** files. Open-HR
 uses dataset-relative **512 x 512** files; the supplied geometry configs resize
