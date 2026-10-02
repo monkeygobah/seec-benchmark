@@ -10,12 +10,12 @@ This repository provides benchmark code, example training configs, and fixed spl
 
 ## Tasks
 
-| Task                                                        | Resources                                       |
-| ----------------------------------------------------------- | ----------------------------------------------- |
-| Embedding geometry under distribution shift                 | Holdout, Open-HR; restricted Clinic cohort      |
-| In-distribution anatomical landmark recovery                | LM-Celeb, LM-CFD                                |
-| Cross-dataset anatomical transfer                           | LM-Celeb to LM-CFD                              |
-| Disease classification: frozen probes and short fine-tuning | Restricted Disease cohort; public BYOD protocol |
+| Task                                                        | Resources                                                                |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Embedding geometry under distribution shift                 | Holdout, Open-HR; restricted Clinic cohort                               |
+| In-distribution anatomical landmark recovery                | LM-Celeb, LM-CFD                                                         |
+| Cross-dataset anatomical transfer                           | LM-Celeb to LM-CFD                                                       |
+| Disease classification: frozen probes and short fine-tuning | Restricted Disease cohort; public bring your own disease (BYOD) protocol |
 
 ## Data and checkpoints
 
