@@ -66,13 +66,19 @@ class EmbeddingModel(nn.Module):
         return {"emb": emb, "proj": proj}
 
 
-def build_inference_bundle(train_cfg: dict[str, Any], checkpoint_path: str | Path) -> InferenceBundle:
-    ckpt = torch.load(checkpoint_path, map_location="cpu")
-
-    encoder = load_encoder_backbone(
-        init=train_cfg["model"]["init"],
-        seg_ckpt=train_cfg["model"].get("seg_ckpt"),
+def build_geometry_encoder(train_cfg: dict[str, Any]) -> nn.Module:
+    """Select the encoder from the loaded run config (legacy default: ResNet-101)."""
+    model_cfg = train_cfg["model"]
+    return load_encoder_backbone(
+        init=model_cfg["init"],
+        seg_ckpt=model_cfg.get("seg_ckpt"),
+        backbone=model_cfg.get("backbone", "resnet101"),
     )
+
+
+def build_inference_bundle(train_cfg: dict[str, Any], checkpoint_path: str | Path) -> InferenceBundle:
+    encoder = build_geometry_encoder(train_cfg)
+    ckpt = torch.load(checkpoint_path, map_location="cpu")
     # Match the training-time encoder state structure: backbone BatchNorm
     # running stats were disabled before checkpoints were saved.
     _disable_running_stats(encoder)

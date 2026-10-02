@@ -69,14 +69,34 @@ repository:
 Full source-dataset reconstruction repository: [URL to be added]
 ```
 
-From an authorized `subset6` corpus, this release provides fixed public-facing
-manifests for pretraining and geometry evaluation:
+Use the shipped fixed manifests for pretraining and geometry evaluation. Do not
+regenerate their membership. `scripts/prepare_subset6_splits.py` is a development-only
+sorted sampler; it cannot reproduce the canonical splits and refuses canonical outputs.
+
+Prepare a separate filesystem view from reconstructed outputs:
 
 ```bash
-python scripts/prepare_subset6_splits.py \
-  --subset6-root "$EEB_DATA_ROOT/subset6" \
-  --out-dir manifests
+python scripts/prepare_benchmark_layout.py \
+  --subset6-root /path/to/reconstructed/SUBSET_6 \
+  --subset7-root /path/to/reconstructed/SUBSET_7 \
+  --out-root "$EEB_DATA_ROOT/subset6"
+```
 
+The view keeps 224 images as flat `<dataset>__<filename>` paths and 512 Open-HR
+images as `<dataset>/<filename>` paths under the same root, matching existing configs.
+Default `--mode auto` uses hard links and falls back to copies if linking is unavailable
+(e.g. different drives). Hard links normally need no administrator privileges on
+Windows, Linux, or macOS. Treat linked views as read-only: edits through a hard link
+would change the source too. Use `--mode copy` for independent files. Explicit
+`--mode symlink` may require Windows Developer Mode or additional permissions;
+`--mode hardlink` fails rather than falling back. Missing sources and existing destinations
+fail preflight without creating files. Repeated entries across fixed splits share one
+view file. Creation-time I/O failure may leave a partial view; nothing is overwritten.
+The utility does not modify source images or fixed manifests.
+
+Check fixed manifest counts:
+
+```bash
 wc -l manifests/pretrain/pretrain_10k.txt \
       manifests/pretrain/pretrain_100k.txt \
       manifests/pretrain/pretrain_1m.txt \

@@ -1,38 +1,19 @@
 # Landmark Probe
 
-Config-driven downstream landmark probe pipeline for frozen SSL backbones.
-
-Stages:
-
-- `prepare`: rebuild canonical `224x224` periorbital dataset with fixed splits
-- `extract`: reopen training runs/checkpoints and write pooled backbone embeddings
-- `probe`: train an MLP landmark regressor on frozen embeddings
-- `aggregate`: summarize completed probe runs into flat CSV tables
-
-Entry points live in `scripts/`:
-
-- `run_landmark_prepare.py`
-- `run_landmark_extract.py`
-- `run_landmark_probe.py`
-- `run_landmark_aggregate.py`
-
-The active 50k-step configs are:
-
-- dataset: `landmark_probe/configs/datasets/periorbital_224_v2.yaml`
-- extraction: `landmark_probe/configs/studies/followup_50k_extract_all_poolings.yaml`
-- G4 probe matrix: `landmark_probe/configs/studies/followup_50k_probe_matrix.yaml`
-
-Useful commands:
+Frozen feature extraction, MLP landmark probing, and aggregation for within-dataset
+LM-Celeb/LM-CFD tasks and Celeb-to-CFD transfer. Use the public scripts from the
+repository root:
 
 ```bash
-python scripts/run_landmark_prepare.py --cfg landmark_probe/configs/datasets/periorbital_224_v2.yaml --overwrite
-python scripts/run_landmark_extract.py --cfg landmark_probe/configs/studies/followup_50k_extract_all_poolings.yaml --overwrite
-python scripts/run_landmark_probe.py --cfg landmark_probe/configs/studies/followup_50k_probe_matrix.yaml
-python scripts/run_landmark_aggregate.py --cfg landmark_probe/configs/studies/followup_50k_probe_matrix.yaml
+python scripts/prepare_landmark_dataset.py --cfg configs/landmarks/prepare_celeb_cfd.yaml
+python scripts/run_landmark_probe.py --cfg configs/landmarks/probe_within_and_transfer.yaml
 ```
 
-Or run the full suite with logs:
+Preparation uses `configs/landmarks/prepare_celeb_cfd.yaml`. Probing uses
+`configs/landmarks/probe_within_and_transfer.yaml` and `configs/landmarks/mlp_default.yaml`.
+The probe entrypoint runs extraction, probing, and aggregation; its `--help` lists
+flags for skipping stages. No separate development scripts are required.
 
-```bash
-scripts/landmark_probe/run_followup_50k_matrix.sh --prepare --overwrite-extract
-```
+See [the main README](../../README.md#landmark-probing) and
+[the quickstart](../../QUICKSTART.md) for source data, environment variables,
+checkpoint prerequisites, and output locations.
