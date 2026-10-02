@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: SEEC Benchmark
+message: "If you use this benchmark, please cite the associated paper."
+type: software
+authors:
+  - family-names: Nahass
+    given-names: George
+date-released: 2026-05-29
+license: MIT
+version: 0.1.0

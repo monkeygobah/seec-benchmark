@@ -1,15 +1,15 @@
 # SEEC Benchmark
 
-The SEEC benchmark is a public release of code, manifests, configs, and
-protocols for evaluating self-supervised representations of standardized
-external-eye crops. It supports fixed-scale pretraining, embedding geometry
-evaluation, anatomical landmark probing, and bring-your-own-data disease
-classification.
+SEEC Benchmark is a public release of code, manifests, configs, and protocols
+for evaluating self-supervised representations of standardized external-eye
+crops. It supports fixed-scale pretraining, embedding geometry evaluation,
+anatomical landmark probing, and bring-your-own-data disease classification.
 
-
-<img width="1280" height="619" alt="benchmark-descriptions" src="https://github.com/user-attachments/assets/ba36b7a8-6311-49b8-8673-1552b8df4027" />
-
-This repository does not include clinical images from our paper as `Clinic` and `Disease` datasets are not available for public release owing to IRB restrictions however, they are potentially available pending IRB approval and appropriate data use agreements. The public disease task is provided as a protocol for users with their own appropriately governed dataset.
+This repository does not include clinical images, pretrained checkpoints,
+training runs, generated embeddings, or full upstream source datasets. The
+`Clinic` geometry data and paper `Disease` clinical classification dataset are
+not available for public release. The public disease task is provided as a
+protocol for users with their own appropriately governed dataset.
 
 For a short first-run path through the artifact, see `QUICKSTART.md`.
 
@@ -24,7 +24,7 @@ export EEB_CHECKPOINT_ROOT=/path/to/checkpoints
 export EEB_OUTPUT_ROOT=/path/to/outputs
 ```
 
-Once all datasets have been prepared and curated, the expected local data layout is as follows:
+Expected local data layout:
 
 ```text
 $EEB_DATA_ROOT/
@@ -39,18 +39,11 @@ $EEB_DATA_ROOT/
     manifest.csv
 ```
 
-Everything other than diseases_boyd should be present (unless you bring your own data.
-
-
 Validate the expected layout:
 
 ```bash
 python scripts/validate_release_inputs.py --data-root "$EEB_DATA_ROOT"
 ```
-
-You can download all model checkpoints used in our work here:
-
-INSERT LINK
 
 ## Release Contents
 
@@ -70,13 +63,11 @@ crops are not bundled in this v0.1 release.
 This release assumes that users already have an authorized local copy of the
 canonical `subset6` external-eye corpus. Full reconstruction of the external-eye
 corpus from all upstream source datasets will be documented in a separate
-repository.
+repository:
 
-<img width="1196" height="258" alt="construction-schem" src="https://github.com/user-attachments/assets/f9e4fdd2-330c-4581-b202-18c137fd9b31" />
-
-
-
-That repository will be linked here following acceptance- it is also linked in section 2.5 of our submission.
+```text
+Full source-dataset reconstruction repository: [URL to be added]
+```
 
 From an authorized `subset6` corpus, this release provides fixed public-facing
 manifests for pretraining and geometry evaluation:
@@ -109,6 +100,7 @@ The landmark benchmark uses public periorbital segmentation data:
 
 - Zenodo record: https://zenodo.org/records/13916845
 - DOI: `10.5281/zenodo.13916845`
+- License: Creative Commons Attribution 4.0 International
 - Files include `periorbital_dataset.zip` plus helper scripts.
 
 After downloading and arranging the raw image/mask pairs, use this layout:
@@ -140,13 +132,6 @@ $EEB_OUTPUT_ROOT/landmarks/periorbital_224_v2/
   metadata/prep_summary.csv
 ```
 
-Here is a figure from our paper demonstrating qualitatively predicted landmarks after training:
-
-
-<img width="913" height="402" alt="lm-qual-trans" src="https://github.com/user-attachments/assets/6d7f3a15-b993-41be-9ca5-ffe6a406a6cd" />
- 
-
-
 ## Benchmark Tasks
 
 Publicly supported tasks:
@@ -156,7 +141,13 @@ Publicly supported tasks:
 - `LM-Celeb` and `LM-CFD` anatomical landmark probing
 - disease classification using a bring-your-own-data manifest
 
-The restricted clinical tasks remain described by the protocol so you can run the same code on your own data if you wish.
+Not publicly released:
+
+- `Clinic`: unlabeled clinical images from the paper
+- `Disease`: clinical classification images and labels from the paper
+
+The restricted clinical tasks remain described by the protocol so authorized
+users can run the same code on appropriately governed local data.
 
 ## Pretraining Models
 
@@ -183,7 +174,7 @@ Pretrained model checkpoints are not committed to this repository. Download the
 checkpoint bundle before running geometry, landmark, or disease benchmarks:
 
 ```text
-Pretrained model checkpoints: https://drive.google.com/drive/folders/1yWJFPZtZmlpNNfYdVn0HcqhuZudFZKPh?usp=sharing
+Pretrained model checkpoints: [Google Drive link to be added]
 ```
 
 Expected checkpoint layout:
@@ -204,14 +195,14 @@ and writes aggregate CSVs under `$EEB_OUTPUT_ROOT/geometry`. Download the
 pretrained checkpoints into `$EEB_CHECKPOINT_ROOT` before running these
 commands.
 
-ResNet-101:
+ResNet-101 grid:
 
 ```bash
 python scripts/run_geometry_eval.py \
   --cfg configs/geometry/resnet101_50k_grid.yaml
 ```
 
-ViT-B/16:
+ViT-B/16 grid:
 
 ```bash
 python scripts/run_geometry_eval.py \
@@ -284,7 +275,7 @@ landmark benchmark.
 ## Development Checks
 
 These checks are optional, but useful after editing the release files. From the
-`BENCHMARK_RELEASE/` directory, run:
+repository root, run:
 
 ```bash
 python -m pytest tests -q

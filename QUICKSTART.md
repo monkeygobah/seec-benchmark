@@ -30,7 +30,7 @@ $EEB_DATA_ROOT/
 ```
 
 The paper `Clinic` and `Disease` clinical datasets are not publicly released.
-The disease command is for users with their own, IRB approved dataset.
+The disease command is for users with their own governed dataset.
 
 Validate the layout:
 
@@ -41,7 +41,7 @@ python scripts/validate_release_inputs.py --data-root "$EEB_DATA_ROOT"
 ## Download Checkpoints
 
 ```text
-Pretrained model checkpoints: https://drive.google.com/drive/folders/1yWJFPZtZmlpNNfYdVn0HcqhuZudFZKPh?usp=sharing
+Pretrained model checkpoints: [Google Drive link to be added]
 ```
 
 Place the downloaded checkpoint folders under `$EEB_CHECKPOINT_ROOT`.

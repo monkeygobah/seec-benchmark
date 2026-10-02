@@ -1,7 +1,7 @@
 # Dataset Card
 
-External Eye Benchmark is organized around standardized unilateral external-eye
-crops and associated benchmark protocols.
+SEEC Benchmark is organized around standardized unilateral external-eye crops
+and associated benchmark protocols.
 
 ## Components
 
