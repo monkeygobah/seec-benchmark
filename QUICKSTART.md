@@ -20,12 +20,13 @@ export EEB_OUTPUT_ROOT=/absolute/path/to/outputs
 On Windows PowerShell, set the same variables with:
 
 ```powershell
-$env:EEB_RELEASE_ROOT = (Get-Location).Path
-$env:EEB_DATA_ROOT = 'C:\path\to\benchmark-data'
-$env:EEB_CHECKPOINT_ROOT = 'C:\path\to\checkpoints'
-$env:EEB_OUTPUT_ROOT = 'C:\path\to\outputs'
+$env:EEB_RELEASE_ROOT = (Get-Location).Path.Replace('\', '/')
+$env:EEB_DATA_ROOT = 'C:/path/to/benchmark-data'
+$env:EEB_CHECKPOINT_ROOT = 'C:/path/to/checkpoints'
+$env:EEB_OUTPUT_ROOT = 'C:/path/to/outputs'
 ```
 
+Use forward slashes in these variables so expansion inside YAML is safe.
 Use `$env:EEB_DATA_ROOT` in place of `$EEB_DATA_ROOT` in the command below.
 
 ## 2. Prepare the image layout
@@ -62,13 +63,12 @@ can leave a partial output view.
 
 Download the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link).
 The hosting location may change when persistent archival hosting is finalized.
-Arrange extracted run folders under:
+Arrange the geometry checkpoint folders under:
 
 ```text
 $EEB_CHECKPOINT_ROOT/
   resnet101_50k/
   vit_b16_50k/
-  vit_b16/
 ```
 
 Keep each run's `config.yaml` and `checkpoints/` together. The task configs specify
