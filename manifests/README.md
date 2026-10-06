@@ -9,4 +9,4 @@ line.
 - `geometry/holdout.txt`: source-distribution holdout split
 - `geometry/open_hr.txt`: high-resolution open-source evaluation split
 
-Paths are expected to resolve relative to the user's authorized corpus root.
+Paths are expected to resolve relative to the corpus root.
