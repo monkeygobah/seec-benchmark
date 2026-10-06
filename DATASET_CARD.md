@@ -27,9 +27,7 @@ The repository includes code, configs, fixed split manifests, and small examples
 Full corpus images and clinical images are not bundled. Checkpoints are distributed
 separately through the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link).
 
-Clinic and Disease results from the paper are not publicly reproducible.
-The public BYOD disease protocol supports a user's appropriately governed dataset;
-it does not supply or reproduce the paper cohort. No clinical access is promised.
+Clinic and Disease results from the paper are not publicly reproducible owing to privacy limitations around these datasets.
 
 Landmark preparation uses [Zenodo record 13916845](https://zenodo.org/records/13916845),
 DOI `10.5281/zenodo.13916845`, described by the release as CC BY 4.0.
