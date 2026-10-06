@@ -1,7 +1,7 @@
 # SEEC Benchmark Dataset Card
 
 SEEC means Standardized External-Eye Corpus. This card covers the benchmark
-resources and protocols; source-corpus reconstruction is documented in
+resources and protocols; SEEC reconstruction is documented in
 [seec-dataset](https://github.com/monkeygobah/seec-dataset).
 
 ## Resources
