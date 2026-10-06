@@ -25,7 +25,7 @@ by the supplied geometry configs. See [Quickstart](QUICKSTART.md) for input layo
 
 The repository includes code, configs, fixed split manifests, and small examples.
 Full corpus images and clinical images are not bundled. Checkpoints are distributed
-separately through the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link); permanent archival hosting may change.
+separately through the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link).
 
 Clinic and Disease results from the paper are not publicly reproducible.
 The public BYOD disease protocol supports a user's appropriately governed dataset;
