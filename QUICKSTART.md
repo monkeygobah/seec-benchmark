@@ -88,7 +88,7 @@ python scripts/prepare_landmark_dataset.py --cfg configs/landmarks/prepare_celeb
 python scripts/run_landmark_probe.py --cfg configs/landmarks/probe_within_and_transfer.yaml
 ```
 
-Disease BYOD: place your governed images under `disease_byod/images/` and create
+Disease datasets: if you have a disease dataset, place your images under `disease_byod/images/` and create
 `disease_byod/manifest.csv` under `EEB_DATA_ROOT`:
 
 ```csv
@@ -96,6 +96,8 @@ image_path,label,group_id
 class_a/example_001.png,class_a,subject_001
 class_b/example_002.png,class_b,subject_002
 ```
+
+Be sure to get IRB approval and obtain appropriate permissions before using clinical data.
 
 Paths are relative to `disease_byod/images/` or absolute. Use one `group_id` for
 all images from the same subject, including both eyes. Provide at least two groups
