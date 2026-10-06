@@ -19,7 +19,7 @@ This repository provides benchmark code, example training configs, and fixed spl
 
 ## Data and checkpoints
 
-- Reconstruct authorized source images with [seec-dataset](https://github.com/monkeygobah/seec-dataset).
+- Reconstruct SEEC from this repo: [seec-dataset](https://github.com/monkeygobah/seec-dataset).
 - Use [scripts/prepare_benchmark_layout.py](scripts/prepare_benchmark_layout.py) to create a separate input view matching the [fixed manifests](manifests/README.md). See the [layout instructions](QUICKSTART.md#2-prepare-the-image-layout).
 - Download the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link). This is the current distribution location, and may be updated later.
 
