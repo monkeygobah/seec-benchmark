@@ -41,8 +41,5 @@ these to 224 x 224 for encoder input. Both live under the prepared `subset6/` ro
 Benchmark code is [MIT licensed](LICENSE). Source-derived data retain their
 applicable source terms. Cite this software and the source datasets you use;
 include the landmark source when running landmark tasks. The manuscript citation
-will be added when its bibliographic metadata are available.
-
-SEEC supports representation-learning research and benchmarking. It is not intended
-for face recognition, identity verification, or clinical deployment. Cropping does
-not guarantee anonymity; clinical benchmark results are not deployment validation.
+will be added when its bibliographic metadata are available. SEEC supports representation-learning research and benchmarking. It is not intended
+for face recognition, identity verification, or clinical deployment. 
