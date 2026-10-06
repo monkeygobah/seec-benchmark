@@ -53,15 +53,12 @@ Use the shipped fixed manifests; do not regenerate splits.
 Default `--mode auto` creates hard links and falls back to copies when links are
 unavailable, including across drives. Treat linked views as read-only: editing a
 hard link also changes its source. Use `--mode copy` for independent files.
-Missing sources or destination collisions stop preparation before any files are
-created. Use a fresh output location; rerunning into an existing view is refused.
-Source images and fixed manifests are never rewritten. Creation-time I/O failures
-can leave a partial output view.
+
 
 ## 3. Download checkpoints
 
 Download the [current checkpoint archive](https://drive.google.com/file/d/1d7z4p7s5l8GPTBHxTFs0vQ_s5DRxWWjK/view?usp=drive_link).
-The hosting location may change when persistent archival hosting is finalized.
+
 Arrange the geometry checkpoint folders under:
 
 ```text
