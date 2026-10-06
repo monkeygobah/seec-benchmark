@@ -1,7 +1,6 @@
 # Quickstart
 
-Choose the task you need; landmark and BYOD data are not required for geometry.
-Clinic and Disease are restricted and cannot be reproduced from the public release.
+Choose the task you need. Clinic and Disease datasets are restricted and cannot be reproduced from the public release.
 
 ## 1. Install
 
